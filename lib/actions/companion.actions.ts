@@ -151,3 +151,17 @@ export const newCompanionPermissions = async () => {
     return true
   }
 }
+
+export const switchBookmarkCompanion = async (companionId: string, newBookmark: boolean) => {
+  const supabase = createSupabaseClient()
+
+  const { data, error } = await supabase
+    .from('companions') 
+    .update({ bookmark: newBookmark})
+    .eq('id', companionId)
+    .select()
+
+  if( error ) throw new Error(error.message)
+
+  return data[0]
+}

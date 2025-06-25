@@ -1,5 +1,9 @@
+'use client'
+
+import { switchBookmarkCompanion } from '@/lib/actions/companion.actions'
 import Image from "next/image"
 import Link from "next/link"
+import { useState } from 'react'
 
 interface CompanionCardProps {
     id: string
@@ -8,11 +12,18 @@ interface CompanionCardProps {
     subject: string
     duration: number
     color: string
+    bookmark: boolean
 }
 
-export default function CompanionCard({ id, name, topic, subject, duration, color }: CompanionCardProps) {
+export default function CompanionCard({ id, name, topic, subject, duration, color, bookmark }: CompanionCardProps) {
+    const [isBookmark, setIsBookmark] = useState(false)
   
-  
+  const switchBookmark = async () => {
+
+    const res = await switchBookmarkCompanion(id, !isBookmark)
+
+    setIsBookmark(res.bookmark)
+  }
   
   return (
     <article
@@ -25,9 +36,11 @@ export default function CompanionCard({ id, name, topic, subject, duration, colo
             className="flex justify-between items-center"
         >
             <div className="subject-badge">{subject}</div>
-            <button className="companion-bookmark">
+            <button className="companion-bookmark"
+                onClick={switchBookmark}
+            >
                 <Image 
-                    src='/icons/bookmark.svg'
+                    src={isBookmark ? '/icons/bookmark-filled.svg' : '/icons/bookmark.svg'}
                     alt="bookmark"
                     width={12.5}
                     height={15}
