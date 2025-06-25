@@ -86,8 +86,6 @@ export const getRecentSessions = async (limit = 10) => {
 
   if(error) throw new Error( error.message )
 
-  console.log('data', data)
-
   return data.map(({ companions }) => companions ) // access to the companion object created in .select()
 };
 
@@ -102,8 +100,6 @@ export const getUserSessions = async (userId: string, limit = 10) => {
     .limit(limit) // get just this limits
 
   if(error) throw new Error( error.message )
-
-  console.log('data', data)
 
   return data.map(({ companions }) => companions ) // access to the companion object created in .select()
 };

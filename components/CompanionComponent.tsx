@@ -75,7 +75,7 @@ export default function CompanionComponent({companionId, name, style, subject, t
       vapi.off('speech-end', onSpeechEnd)
 
     }
-  }, [])
+  }, [companionId])
 
   const toggleMicrophone = () => {
     const isMuted = vapi.isMuted();
@@ -96,7 +96,7 @@ export default function CompanionComponent({companionId, name, style, subject, t
       serverMessages: []
     }
 
-    // @ts-expect-error
+    // @ts-expect-error - VAPI SDK types might be outdated or incomplete
     vapi.start(configureAssistant(voice, style), assistantOverrides)
   }
 

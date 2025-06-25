@@ -55,16 +55,12 @@ export default function CompanionForm() {
     // 2. Define a submit handler.
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const companion = await createCompanion(values);
-    console.log(companion)
-
 
     if(companion) {
       redirect(`/companions/${companion.id}`)
     } else {
       console.log('Failed to create a companion')
     }
-
-
   }
   
   

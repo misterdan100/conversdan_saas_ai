@@ -1,12 +1,11 @@
-import React from 'react'
-import {Button} from "@/components/ui/button";
 import CompanionCard from '@/components/CompanionCard';
 import CompanionsList from '@/components/CompanionsList';
 import CTA from '@/components/CTA';
-import { recentSessions } from '@/constants';
 import { getAllCompanions, getRecentSessions } from '@/lib/actions/companion.actions';
-import { auth } from '@clerk/nextjs/server';
 import { getSubjectColor } from '@/lib/utils';
+
+// to avoid supabase error related with headera
+export const dynamic = 'force-dynamic'
 
 const HomePage = async () => {
   const companions = await getAllCompanions({ limit: 3 })
