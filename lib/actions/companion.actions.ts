@@ -107,3 +107,17 @@ export const getUserSessions = async (userId: string, limit = 10) => {
 
   return data.map(({ companions }) => companions ) // access to the companion object created in .select()
 };
+
+export const getUserCompanions = async (userId: string) => {
+  const supabase = createSupabaseClient();
+
+  const { data, error } = await supabase
+    .from('companions') // select the table
+    .select() //select all registers in the table
+    .eq( 'author', userId) // select only regisers with a specific userId
+    .order('created_at', { ascending: false }) // order by created at, recents first
+
+  if(error) throw new Error( error.message )
+
+  return data;
+};
